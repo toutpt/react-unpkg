@@ -1,0 +1,44 @@
+{
+  "name": "react-unpkg",
+  "version": "0.0.0",
+  "description": "react-unpkg provides some react components to handle CDN based import at scale",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "start-storybook -p 9080 -s public",
+    "test": "yarn test"
+  },
+  "dependencies": {
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.10.4",
+    "@storybook/addon-actions": "5.3.19",
+    "@storybook/addon-links": "5.3.19",
+    "@storybook/addons": "5.3.19",
+    "@storybook/preset-create-react-app": "3.1.2",
+    "@storybook/react": "5.3.18",
+    "@types/node": "14.0.14",
+    "@types/react": "16.9.41",
+    "@types/react-dom": "16.9.8",
+    "babel-loader": "8.1.0",
+    "prettier": "^2.0.5",
+    "react-scripts": "3.4.1",
+    "typescript": "3.9.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toutpt/react-unpkg.git"
+  },
+  "keywords": [
+    "react",
+    "unpkg",
+    "cdn"
+  ],
+  "author": "Jean-Michel FRANCOIS <toutpt@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/toutpt/react-unpkg/issues"
+  },
+  "homepage": "https://github.com/toutpt/react-unpkg#readme"
+}
