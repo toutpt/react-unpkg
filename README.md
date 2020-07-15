@@ -4,24 +4,22 @@ This package provides some React components and the basic javascript API to leve
 
 # How to use
 
+you can check the src/stories folder to see how to use it.
+
 ```javascript
-import { ResourceService, Import, CDNContext } from 'react-unpkg';
+import { ResourceService, Import, CDNContext } from "react-unpkg";
 
-// instanciate the service with a given config
-const $resource = new ResourceService(config);
+const bundles = {...};
 
-// you can either directly use the API
-$resource.import('react').then(() => {
-    // from here the global vars are available
-    ReactDOM.render(
-        // you have to add the React CDN Context Provider
-        <CDNContext.Provider value={$resource}>
-            <p>Then you can use the Import component</p>
-            <Import name="@material/core">
-                {({Button}) => <Button color="primary">Hello World</Button>;}
-            </Import>
-        </CDNContext.Provider>,
-        document.getElementById('root')
-    );
-});
+export function App() {
+  <CDNContext.Provider value={new ResourceService({
+    bundles,
+  })}>
+      <Import name="@material-ui/core">
+          {(MaterialUI) => {
+            return <MaterialUI.Button>Loaded</MaterialUI.Button>
+          }}
+      </Import>
+  </CDNContext.Provider>
+}
 ```

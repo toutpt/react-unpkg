@@ -38,19 +38,26 @@ function defaultGetURL(resource: Resource) {
 	if (!resource) {
 		return;
 	}
-	return `https://unpkg.com/${resource.name}@${resource.version}${resource.path}`;
+	if (resource.url) {
+		return resource.url;
+	}
+	if (resource.name && resource.version && resource.path) {
+		return `https://unpkg.com/${resource.name}@${resource.version}${resource.path}`;
+	}
+	throw new Error(
+		`resource is missing either url or name/version/path, ${JSON.stringify(resource)}`,
+	);
 }
 
 class ResourceService {
 	private _bundles: Map<string, Bundle>;
-	public getURL: (any) => string;
+	public _getURL: (any) => string;
 	private loaded: Record<string, boolean>;
 
 	constructor(options: any = {}) {
 		this._bundles = new Map<string, Bundle>();
-		this.getURL = options?.getURL || defaultGetURL;
 		this.loaded = {};
-
+		this._getURL = options.getURL;
 		Object.keys(bundles || {}).forEach(k => {
 			this._bundles.set(k, bundles[k]);
 		});
@@ -58,6 +65,15 @@ class ResourceService {
 			Object.keys(options.bundles || {}).forEach(k => {
 				this._bundles.set(k, options.bundles[k]);
 			});
+		}
+	}
+	getURL(resource: Resource) {
+		let url;
+		if (this._getURL) {
+			url = this._getURL(resource);
+		}
+		if (!url) {
+			return defaultGetURL(resource);
 		}
 	}
 	getBundle(id: string) {
@@ -96,7 +112,7 @@ class ResourceService {
 				return acc;
 			}, []);
 		}
-		return deps.concat(buff).filter(r => r.tag === 'script');
+		return deps.concat(buff);
 	}
 	import(id: string) {
 		const resources = this.getResources(id);
@@ -155,6 +171,7 @@ class ResourceService {
 		});
 	}
 	addLink(resources) {
+		console.log('### addLink', resources);
 		if (resources.length > 0) {
 			resources.forEach(resource => {
 				const link = document.createElement('link');
@@ -163,6 +180,7 @@ class ResourceService {
 				link.onload = () => {
 					console.log('link loaded', resource);
 				};
+				console.log('add <link href=', this.getURL(resource));
 				document.head.appendChild(link);
 			});
 		}
