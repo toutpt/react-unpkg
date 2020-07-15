@@ -7,6 +7,8 @@ import { ResourceService, Import, CDNContext } from "../index";
 window.React = React;
 window.ReactDOM = ReactDOM;
 
+export default { title: "React-unpkg Components" };
+
 const bundles = {
   '@material-ui/core': {
     dependencies: [],

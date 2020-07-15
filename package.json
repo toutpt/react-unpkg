@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "start-storybook -p 9080 -s public",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "build-storybook -s react-unpkg -o docs",
     "test": "yarn test"
   },
   "dependencies": {
