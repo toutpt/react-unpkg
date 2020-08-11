@@ -1,4 +1,3 @@
-import { bundles } from './config';
 import { Resource, Bundle } from './types';
 
 /**
@@ -58,9 +57,6 @@ class ResourceService {
 		this._bundles = new Map<string, Bundle>();
 		this.loaded = {};
 		this._getURL = options.getURL;
-		Object.keys(bundles || {}).forEach(k => {
-			this._bundles.set(k, bundles[k]);
-		});
 		if (options?.bundles) {
 			Object.keys(options.bundles || {}).forEach(k => {
 				this._bundles.set(k, options.bundles[k]);
@@ -112,11 +108,13 @@ class ResourceService {
 				return acc;
 			}, []);
 		}
+		if (deps.length === 0 && buff.length === 0) {
+			console.warn(`No resources found for ${id}. may be a typo or configuration issue ?`);
+		}
 		return deps.concat(buff);
 	}
 	import(id: string) {
 		const resources = this.getResources(id);
-		console.log('####', resources, id);
 		this.addLink(resources.filter(r => r.tag === 'link'));
 		return this.addScripts(resources.filter(r => r.tag === 'script'));
 	}

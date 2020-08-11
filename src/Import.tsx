@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CDNContext } from './Context';
 
-export function Import({name, children}) {
+// TODO: replace with a skeleton
+const DefaultFallback = () => <p>Loading</p>;
+
+export function Import({name, fallback, children}) {
 	const cdn = useContext(CDNContext);
 	const [state, setModule] = useState({id: name, mod: undefined});
 
@@ -20,5 +23,9 @@ export function Import({name, children}) {
 		// loaded
 		return children(state.mod);
 	}
-	return <p>Loading</p>;
+	return fallback();
 }
+
+Import.defaultProps = {
+	fallback: DefaultFallback,
+};

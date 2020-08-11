@@ -4,8 +4,10 @@
   "description": "react-unpkg provides some react components to handle CDN based import at scale",
   "main": "lib/index.js",
   "scripts": {
+    "prepublish": "npm run lib && npm run umd",
     "start": "start-storybook -p 9080 -s public",
     "build-storybook": "build-storybook -s react-unpkg -o docs",
+    "lib": "tsc",
     "test": "yarn test"
   },
   "dependencies": {
@@ -14,6 +16,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.10.4",
+    "@chakra-ui/core": "^0.8.0",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
     "@storybook/addon-actions": "5.3.19",
     "@storybook/addon-links": "5.3.19",
     "@storybook/addons": "5.3.19",
@@ -23,6 +28,7 @@
     "@types/react": "16.9.41",
     "@types/react-dom": "16.9.8",
     "babel-loader": "8.1.0",
+    "emotion-theming": "^10.0.27",
     "prettier": "^2.0.5",
     "react-scripts": "3.4.1",
     "typescript": "3.9.6"
